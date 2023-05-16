@@ -35,6 +35,6 @@ sync:
     - git remote add gitlabsync https://${GITHUB_TOKEN_NAME}:${GITHUB_TOKEN}@${GITHUB_URL}/gitlabsync.git 
     # Pousse les modifications de la branche main de Gitlab vers la branche main de GitHub.
     - git push gitlabsync main:main
-    # Déclenchement du pipeline à partir de la branche main uniquement
+    # Declenchement du pipeline à partir de la branche main uniquement
   only:
     - main
