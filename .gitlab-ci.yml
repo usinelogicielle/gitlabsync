@@ -3,6 +3,7 @@
 default:
   tags:
     - Usine_Logicielle
+  timeout: 30 minutes
 # Définition des étapes du pipeline
 stages:
   - sync
@@ -38,3 +39,4 @@ sync:
     # Declenchement du pipeline à partir de la branche main uniquement
   only:
     - main
+  timeout: 20 minutes
