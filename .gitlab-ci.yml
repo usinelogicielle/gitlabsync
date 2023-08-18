@@ -7,13 +7,49 @@ default:
 # Définition des étapes du pipeline
 stages:
   - sync
-variables:  
+# Définition des variables globales pour tous les jobs  
+#============================
+
+variables: 
+
+  # Variables globales déclarées en dehors du yaml, définies automatiquement par Gitlab (Liste non exhaustive. Voir https://docs.gitlab.com/ee/ci/pipelines/index.html#prefill-variables-in-manual-pipelines) 
+  #============================
+  # non utilisées dans ce yaml
+
+  # Variables globales déclarées en dehors du yaml, définies par l'UL au niveau de l’instance Gitlab 
+  #============================
+  # CNES_CERTIFICATE 
+  
+  # Variables globales déclarées en dehors du yaml, définies par l'UL, au niveau du groupe Gitlab dans le menu "Settings > CI/CD > Variables", et héritées par le projet : 
+  #============================
+  # Pour les images Docker sur Artifactory : 
+  # DOCKER_AUTH_CONFIG 
+  # Pour la connexion à Artifactory : 
+  # ARTIFACTORY_HOST 
+  # Pour les connexions par proxy : 
+  # NO_PROXY 
+  # PROXY_URL 
+  # PROXY_USER
+  # PROXY_PWD 
+  # …
+
+  # Variables globales déclarées en dehors du yaml, définies par l'UL, au niveau du projet Gitlab dans le menu "Settings > CI/CD > Variables" : 
+  #============================
+
+  # GITHUB_TOKEN
+  # GITHUB_TOKEN_NAME
+  # GITHUB_URL 
+
+  # Variables globales déclarées dans le yaml :  
+  #============================
+
   # url générique du serveur contenant les images docker
   ARTIFACTORY_URL: "${ARTIFACTORY_HOST}/publicremotes-docker"
   # Paramètres proxy
   HTTP_PROXY: http://${PROXY_USER}:${PROXY_PWD}@${PROXY_URL}
   HTTPS_PROXY: http://${PROXY_USER}:${PROXY_PWD}@${PROXY_URL}
   NO_PROXY: ${NO_PROXY}
+
 # Définition de la tâche de synchronisation du dépôt GitLab vers le dépôt GitHub
 sync:
   stage: sync
@@ -37,6 +73,6 @@ sync:
     # Pousse les modifications de la branche main de Gitlab vers la branche main de GitHub.
     - git push gitlabsync main:main
     # Declenchement du pipeline à partir de la branche main uniquement
-  only:
-    - main
+#  only:
+#    - main
   timeout: 20 minutes
