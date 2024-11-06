@@ -42,9 +42,6 @@ variables:
 
   # Variables globales déclarées dans le yaml :  
   #============================
-
-  # url générique du serveur contenant les images docker
-  ARTIFACTORY_URL: "${ARTIFACTORY_HOST}/publicremotes-docker"
   # Paramètres proxy
   HTTP_PROXY: http://${PROXY_USER}:${PROXY_PWD}@${PROXY_URL}
   HTTPS_PROXY: http://${PROXY_USER}:${PROXY_PWD}@${PROXY_URL}
@@ -55,7 +52,7 @@ sync:
   stage: sync
   # Définition de l'image Docker utilisée pour le pipeline. On préfère une image avec git déjà installé.
   image:
-    name: ${ARTIFACTORY_URL}/alpine/git
+    name: ${ARTIFACTORY_HOST}/publicremotes-docker/alpine/git
     entrypoint: [""]
 
   before_script:
