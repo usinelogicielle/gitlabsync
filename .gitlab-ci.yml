@@ -18,20 +18,29 @@ variables:
 
   # Variables globales déclarées en dehors du yaml, définies par l'UL au niveau de l’instance Gitlab 
   #============================
-  # CNES_CERTIFICATE 
-  
-  # Variables globales déclarées en dehors du yaml, définies par l'UL, au niveau du groupe Gitlab dans le menu "Settings > CI/CD > Variables", et héritées par le projet : 
-  #============================
-  # Pour les images Docker sur Artifactory : 
-  # DOCKER_AUTH_CONFIG 
-  # Pour la connexion à Artifactory : 
-  # ARTIFACTORY_HOST 
-  # Pour les connexions par proxy : 
-  # NO_PROXY 
-  # PROXY_URL 
-  # PROXY_USER
-  # PROXY_PWD 
-  # …
+  # CNES_CERTIFICATE
+  # JAVA_HOME
+  # UL_GITLAB_HOST
+  # UL_GITLAB_URL
+  # UL_GITLAB_API_URL
+  # UL_JENKINS_URL
+  # UL_SONARQUBE_HOST
+  # UL_SONARQUBE_URL
+  # UL_SONARQUBE_API_URL
+  # UL_JIRA_HOST
+  # UL_JIRA_URL
+  # UL_JIRA_API_URL
+  # UL_CONFLUENCE_HOST
+  # UL_CONFLUENCE_URL
+  # UL_CONFLUENCE_API_URL
+  # UL_ARTIFACTORY_HOST
+  # UL_ARTIFACTORY_URL
+  # UL_ARTIFACTORY_API_URL
+  # UL_PROXY_SURF_HOST
+  # UL_PROXY_SURF_PORT
+  # UL_PROXY_TECH_HOST
+  # UL_PROXY_TECH_PORT
+  # UL_DOCKER_AUTH_CONFIG
 
   # Variables globales déclarées en dehors du yaml, définies par l'UL, au niveau du projet Gitlab dans le menu "Settings > CI/CD > Variables" : 
   #============================
@@ -43,8 +52,8 @@ variables:
   # Variables globales déclarées dans le yaml :  
   #============================
   # Paramètres proxy
-  HTTP_PROXY: http://${PROXY_USER}:${PROXY_PWD}@${PROXY_URL}
-  HTTPS_PROXY: http://${PROXY_USER}:${PROXY_PWD}@${PROXY_URL}
+  HTTP_PROXY: http://${PROXY_USER}:${PROXY_PWD}@${UL_PROXY_TECH_HOST}:${UL_PROXY_TECH_PORT}
+  HTTPS_PROXY: http://${PROXY_USER}:${PROXY_PWD}@${UL_PROXY_TECH_HOST}:${UL_PROXY_TECH_PORT}
   NO_PROXY: ${NO_PROXY}
 
 # Définition de la tâche de synchronisation du dépôt GitLab vers le dépôt GitHub
@@ -52,7 +61,7 @@ sync:
   stage: sync
   # Définition de l'image Docker utilisée pour le pipeline. On préfère une image avec git déjà installé.
   image:
-    name: ${ARTIFACTORY_HOST}/publicremotes-docker/alpine/git
+    name: ${UL_ARTIFACTORY_HOST}/publicremotes-docker/alpine/git
     entrypoint: [""]
 
   before_script:
