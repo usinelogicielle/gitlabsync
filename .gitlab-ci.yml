@@ -49,8 +49,23 @@ variables:
   # GITHUB_TOKEN_NAME
   # GITHUB_URL 
 
+  # Variables globales déclarées dans le yaml, constituant des "paramètres" pour les jobs manuels :  
+  #============================
+  DEBUG: 
+    value: 'false'
+    description: "Afficher des logs supplémentaires"
+
+  #============================
+  # Variables pour les tags des images Docker à utiliser pour les jobs 
+  #---------------------------  
+  TAG_IMAGE_ALPINE_GIT: "publicremotes-docker/alpine/git:v2.45.2"
+
+
   # Variables globales déclarées dans le yaml :  
   #============================
+  CI_REGISTRY: "https://${UL_ARTIFACTORY_HOST}"
+  # Variable permettant d'annuler le clone par défaut du dépôt. Car il faut configurer l'authentification LFS au préalable.
+  GIT_STRATEGY: none
   # Paramètres proxy
   HTTP_PROXY: http://${PROXY_USER}:${PROXY_PWD}@${UL_PROXY_TECH_HOST}:${UL_PROXY_TECH_PORT}
   HTTPS_PROXY: http://${PROXY_USER}:${PROXY_PWD}@${UL_PROXY_TECH_HOST}:${UL_PROXY_TECH_PORT}
@@ -61,7 +76,7 @@ sync:
   stage: sync
   # Définition de l'image Docker utilisée pour le pipeline. On préfère une image avec git déjà installé.
   image:
-    name: ${UL_ARTIFACTORY_HOST}/publicremotes-docker/alpine/git
+    name: ${UL_ARTIFACTORY_HOST}/${TAG_IMAGE_ALPINE_GIT}
     entrypoint: [""]
 
   before_script:
